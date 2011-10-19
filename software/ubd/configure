@@ -597,12 +597,6 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
-AVAHICLIENT_LIBS
-AVAHICLIENT_CFLAGS
-AVAHIGLIB_LIBS
-AVAHIGLIB_CFLAGS
-GTHREAD_LIBS
-GTHREAD_CFLAGS
 MXML_LIBS
 MXML_CFLAGS
 GIO_LIBS
@@ -714,13 +708,7 @@ GLIB_LIBS
 GIO_CFLAGS
 GIO_LIBS
 MXML_CFLAGS
-MXML_LIBS
-GTHREAD_CFLAGS
-GTHREAD_LIBS
-AVAHIGLIB_CFLAGS
-AVAHIGLIB_LIBS
-AVAHICLIENT_CFLAGS
-AVAHICLIENT_LIBS'
+MXML_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1360,18 +1348,6 @@ Some influential environment variables:
   GIO_LIBS    linker flags for GIO, overriding pkg-config
   MXML_CFLAGS C compiler flags for MXML, overriding pkg-config
   MXML_LIBS   linker flags for MXML, overriding pkg-config
-  GTHREAD_CFLAGS
-              C compiler flags for GTHREAD, overriding pkg-config
-  GTHREAD_LIBS
-              linker flags for GTHREAD, overriding pkg-config
-  AVAHIGLIB_CFLAGS
-              C compiler flags for AVAHIGLIB, overriding pkg-config
-  AVAHIGLIB_LIBS
-              linker flags for AVAHIGLIB, overriding pkg-config
-  AVAHICLIENT_CFLAGS
-              C compiler flags for AVAHICLIENT, overriding pkg-config
-  AVAHICLIENT_LIBS
-              linker flags for AVAHICLIENT, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -3531,6 +3507,8 @@ fi
 
 CFLAGS="$CFLAGS -g -Wall -Wextra"
 
+#AC_CHECK_HEADER(libutil.h,LDFLAGS="$LDFLAGS -lbsd",
+#  AC_MSG_ERROR(libutil.h not found. Please install libbsd-dev.))
 
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -3929,12 +3907,13 @@ fi
 done
 
 
-ac_fn_c_check_header_mongrel "$LINENO" "libutil.h" "ac_cv_header_libutil_h" "$ac_includes_default"
-if test "x$ac_cv_header_libutil_h" = x""yes; then :
-  LDFLAGS="$LDFLAGS -lbsd"
+ac_fn_c_check_header_mongrel "$LINENO" "avahi-core/core.h" "ac_cv_header_avahi_core_core_h" "$ac_includes_default"
+if test "x$ac_cv_header_avahi_core_core_h" = x""yes; then :
+  LIBS="$LIBS -lavahi-core"
 else
-  as_fn_error $? "libutil.h not found. Please install libbsd-dev." "$LINENO" 5
+  as_fn_error $? "avahi-core/core.h not found. Please install libbsd-dev." "$LINENO" 5
 fi
+
 
 
 
@@ -4283,273 +4262,12 @@ else
 $as_echo "yes" >&6; }
 	LIBS="$LIBS $MXML_LIBS" CFLAGS="$CFLAGS $MXML_CFLAGS"
 fi
-
-pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for GTHREAD" >&5
-$as_echo_n "checking for GTHREAD... " >&6; }
-
-if test -n "$GTHREAD_CFLAGS"; then
-    pkg_cv_GTHREAD_CFLAGS="$GTHREAD_CFLAGS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gthread-2.0\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "gthread-2.0") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  pkg_cv_GTHREAD_CFLAGS=`$PKG_CONFIG --cflags "gthread-2.0" 2>/dev/null`
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-if test -n "$GTHREAD_LIBS"; then
-    pkg_cv_GTHREAD_LIBS="$GTHREAD_LIBS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gthread-2.0\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "gthread-2.0") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  pkg_cv_GTHREAD_LIBS=`$PKG_CONFIG --libs "gthread-2.0" 2>/dev/null`
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-
-
-
-if test $pkg_failed = yes; then
-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-
-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
-else
-        _pkg_short_errors_supported=no
-fi
-        if test $_pkg_short_errors_supported = yes; then
-	        GTHREAD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "gthread-2.0" 2>&1`
-        else
-	        GTHREAD_PKG_ERRORS=`$PKG_CONFIG --print-errors "gthread-2.0" 2>&1`
-        fi
-	# Put the nasty error message in config.log where it belongs
-	echo "$GTHREAD_PKG_ERRORS" >&5
-
-	as_fn_error $? "Package requirements (gthread-2.0) were not met:
-
-$GTHREAD_PKG_ERRORS
-
-Consider adjusting the PKG_CONFIG_PATH environment variable if you
-installed software in a non-standard prefix.
-
-Alternatively, you may set the environment variables GTHREAD_CFLAGS
-and GTHREAD_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details." "$LINENO" 5
-elif test $pkg_failed = untried; then
-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
-as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
-is in your PATH or set the PKG_CONFIG environment variable to the full
-path to pkg-config.
-
-Alternatively, you may set the environment variables GTHREAD_CFLAGS
-and GTHREAD_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-
-To get pkg-config, see <http://pkg-config.freedesktop.org/>.
-See \`config.log' for more details" "$LINENO" 5 ; }
-else
-	GTHREAD_CFLAGS=$pkg_cv_GTHREAD_CFLAGS
-	GTHREAD_LIBS=$pkg_cv_GTHREAD_LIBS
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
-	LIBS="$LIBS $GTHREAD_LIBS" CFLAGS="$CFLAGS $GTHREAD_CFLAGS"
-fi
-
-pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for AVAHIGLIB" >&5
-$as_echo_n "checking for AVAHIGLIB... " >&6; }
-
-if test -n "$AVAHIGLIB_CFLAGS"; then
-    pkg_cv_AVAHIGLIB_CFLAGS="$AVAHIGLIB_CFLAGS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"avahi-glib >= 0.6.22\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "avahi-glib >= 0.6.22") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  pkg_cv_AVAHIGLIB_CFLAGS=`$PKG_CONFIG --cflags "avahi-glib >= 0.6.22" 2>/dev/null`
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-if test -n "$AVAHIGLIB_LIBS"; then
-    pkg_cv_AVAHIGLIB_LIBS="$AVAHIGLIB_LIBS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"avahi-glib >= 0.6.22\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "avahi-glib >= 0.6.22") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  pkg_cv_AVAHIGLIB_LIBS=`$PKG_CONFIG --libs "avahi-glib >= 0.6.22" 2>/dev/null`
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-
-
-
-if test $pkg_failed = yes; then
-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-
-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
-else
-        _pkg_short_errors_supported=no
-fi
-        if test $_pkg_short_errors_supported = yes; then
-	        AVAHIGLIB_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "avahi-glib >= 0.6.22" 2>&1`
-        else
-	        AVAHIGLIB_PKG_ERRORS=`$PKG_CONFIG --print-errors "avahi-glib >= 0.6.22" 2>&1`
-        fi
-	# Put the nasty error message in config.log where it belongs
-	echo "$AVAHIGLIB_PKG_ERRORS" >&5
-
-	as_fn_error $? "Package requirements (avahi-glib >= 0.6.22) were not met:
-
-$AVAHIGLIB_PKG_ERRORS
-
-Consider adjusting the PKG_CONFIG_PATH environment variable if you
-installed software in a non-standard prefix.
-
-Alternatively, you may set the environment variables AVAHIGLIB_CFLAGS
-and AVAHIGLIB_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details." "$LINENO" 5
-elif test $pkg_failed = untried; then
-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
-as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
-is in your PATH or set the PKG_CONFIG environment variable to the full
-path to pkg-config.
-
-Alternatively, you may set the environment variables AVAHIGLIB_CFLAGS
-and AVAHIGLIB_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-
-To get pkg-config, see <http://pkg-config.freedesktop.org/>.
-See \`config.log' for more details" "$LINENO" 5 ; }
-else
-	AVAHIGLIB_CFLAGS=$pkg_cv_AVAHIGLIB_CFLAGS
-	AVAHIGLIB_LIBS=$pkg_cv_AVAHIGLIB_LIBS
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
-	LIBS="$LIBS $AVAHIGLIB_LIBS" CFLAGS="$CFLAGS $AVAHIGLIB_CFLAGS"
-fi
-
-pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for AVAHICLIENT" >&5
-$as_echo_n "checking for AVAHICLIENT... " >&6; }
-
-if test -n "$AVAHICLIENT_CFLAGS"; then
-    pkg_cv_AVAHICLIENT_CFLAGS="$AVAHICLIENT_CFLAGS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"avahi-client >= 0.6.22\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "avahi-client >= 0.6.22") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  pkg_cv_AVAHICLIENT_CFLAGS=`$PKG_CONFIG --cflags "avahi-client >= 0.6.22" 2>/dev/null`
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-if test -n "$AVAHICLIENT_LIBS"; then
-    pkg_cv_AVAHICLIENT_LIBS="$AVAHICLIENT_LIBS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"avahi-client >= 0.6.22\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "avahi-client >= 0.6.22") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  pkg_cv_AVAHICLIENT_LIBS=`$PKG_CONFIG --libs "avahi-client >= 0.6.22" 2>/dev/null`
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-
-
-
-if test $pkg_failed = yes; then
-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-
-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
-else
-        _pkg_short_errors_supported=no
-fi
-        if test $_pkg_short_errors_supported = yes; then
-	        AVAHICLIENT_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "avahi-client >= 0.6.22" 2>&1`
-        else
-	        AVAHICLIENT_PKG_ERRORS=`$PKG_CONFIG --print-errors "avahi-client >= 0.6.22" 2>&1`
-        fi
-	# Put the nasty error message in config.log where it belongs
-	echo "$AVAHICLIENT_PKG_ERRORS" >&5
-
-	as_fn_error $? "Package requirements (avahi-client >= 0.6.22) were not met:
-
-$AVAHICLIENT_PKG_ERRORS
-
-Consider adjusting the PKG_CONFIG_PATH environment variable if you
-installed software in a non-standard prefix.
-
-Alternatively, you may set the environment variables AVAHICLIENT_CFLAGS
-and AVAHICLIENT_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details." "$LINENO" 5
-elif test $pkg_failed = untried; then
-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
-as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
-is in your PATH or set the PKG_CONFIG environment variable to the full
-path to pkg-config.
-
-Alternatively, you may set the environment variables AVAHICLIENT_CFLAGS
-and AVAHICLIENT_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-
-To get pkg-config, see <http://pkg-config.freedesktop.org/>.
-See \`config.log' for more details" "$LINENO" 5 ; }
-else
-	AVAHICLIENT_CFLAGS=$pkg_cv_AVAHICLIENT_CFLAGS
-	AVAHICLIENT_LIBS=$pkg_cv_AVAHICLIENT_LIBS
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
-	LIBS="$LIBS $AVAHICLIENT_LIBS" CFLAGS="$CFLAGS $AVAHICLIENT_CFLAGS"
-fi
+#PKG_CHECK_MODULES(GTHREAD, gthread-2.0,
+#    [LIBS="$LIBS $GTHREAD_LIBS" CFLAGS="$CFLAGS $GTHREAD_CFLAGS"])
+#PKG_CHECK_MODULES(AVAHIGLIB, avahi-glib >= 0.6.22,
+#    [LIBS="$LIBS $AVAHIGLIB_LIBS" CFLAGS="$CFLAGS $AVAHIGLIB_CFLAGS"])
+#PKG_CHECK_MODULES(AVAHICLIENT, avahi-client >= 0.6.22,
+#    [LIBS="$LIBS $AVAHICLIENT_LIBS" CFLAGS="$CFLAGS $AVAHICLIENT_CFLAGS"])
 
 ac_config_headers="$ac_config_headers config.h"
 
