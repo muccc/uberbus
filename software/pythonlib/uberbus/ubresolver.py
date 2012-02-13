@@ -2,7 +2,7 @@ import dbus, gobject, avahi
 from dbus import DBusException
 from dbus.mainloop.glib import DBusGMainLoop
 import os
-
+from ubnode import UBNodeInfo
 class UBResolver: 
     def __init__(self, ubclass, udp = False):
         self.loop = DBusGMainLoop()
@@ -31,19 +31,20 @@ class UBResolver:
         #print 'address:', args[7]
         #print 'port:', args[8]
         
-        address = args[7]
         name = args[2]
         domain = 'local'
-
         node = name + '.' + domain
         #print 'node',node
+        nodeinfo = UBNodeInfo()
+
+        nodeinfo.address = args[7]
+        nodeinfo.port = args[8]
+        nodeinfo.node = node
 
         if node not in self.nodes:
             self.nodes.append(node)
-            multicast = False
-            if address[0:2] == 'ff':
-                multicast = True
-            self.newNode(node, address, multicast)
+            nodeinfo.multicast = nodeinfo.address[0:2] == 'ff'
+            self.newNode(nodeinfo)
 
     def print_error(self, *args):
         print 'error_handler'
@@ -53,9 +54,11 @@ class UBResolver:
         print "Removed service '%s' type '%s' domain '%s' " % (name, stype, domain)
         print interface, protocol, name, stype, domain, flags
         node = name + '.' + domain
+        nodeinfo = {}
+        nodeinfo['node'] = node
         if node in self.nodes:
             self.nodes.remove(node)
-            self.removedNode(node)
+            self.removedNode(nodeinfo)
 
     def newhandler(self, interface, protocol, name, stype, domain, flags):
         #print "Found service '%s' type '%s' domain '%s' " % (name, stype, domain)

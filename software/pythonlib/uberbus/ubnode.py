@@ -293,4 +293,6 @@ class UBNode(parser.Parser):
         self.closeMgtSocket()
         return ret
 
+class UBNodeInfo:
+    pass
 
