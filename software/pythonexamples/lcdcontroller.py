@@ -144,16 +144,16 @@ def refreshlcd():
     return True
 
 class Resolver(uberbus.moodlamp.MoodlampResolver):
-    def newNode(self, node, address, multicast):
+    def newNode(self, nodeinfo):
         global lamp,lamps,defaultlamp
-        if multicast == True:
-            if len(lamps) == 0 or node == defaultlamp:
+        if nodeinfo.multicast == True:
+            if len(lamps) == 0 or nodeinfo.node == defaultlamp:
                 # insert the node at position one but keep current selection
-                lamps.insert(0,node)
+                lamps.insert(0,nodeinfo.node)
                 lamp = 0#(lamp + 1) % len(lamps)
                 hid.lcd(0,0,lamps[lamp])
             else:
-                lamps.append(node)
+                lamps.append(nodeinfo.node)
     
     def removedNode(self, node):
         if node in lamps:
