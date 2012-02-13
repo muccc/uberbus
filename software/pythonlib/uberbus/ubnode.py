@@ -38,10 +38,7 @@ class UBNode(parser.Parser):
 
         self.socket = None
         self.timeout =None
-        self.time = None
-        self.dispatcher = None
         self.callbacks = []
-        self.aborted = False
         self.lasttry = 0
         self.cc_timer = None
         self.iowatch = None
@@ -116,7 +113,7 @@ class UBNode(parser.Parser):
         self.callbacks.append(callbackobject)
 
     def eof(self):
-        #gets called by the dispatcher when the sockets says EOF
+        #gets called when the sockets says EOF
         print "EOF on socket"
         self.closeSocket()
 
@@ -248,29 +245,9 @@ class UBNode(parser.Parser):
 
     def setTimeout(self, timeout):
         self.timeout = timeout
-#        if self.dispatcher:
-#            self.dispatcher.setTimeout(timeout)
 
-#    def setTimer(self, time, callback):
-#        self.time = time
-#        self.callback = callback
-#        if self.dispatcher:
-#            self.disptacher.setTimer(time, callback)
-#    def checkOnce(self):
-#        if self.dispatcher == None:
-#            self.dispatcher = dispatcher.Dispatcher()
-#            self.dispatcher.addNode(self)
-#            if self.timeout:
-#                self.dispatcher.setTimeout(self.timeout)
-#            if self.time:
-#                self.dispatcher.setTimer(self.time, self.callback)
-#        self.dispatcher.checkOnce()
-#
     def checkForever(self):
         gobject.MainLoop().run()
-
-    def abort(self):
-        self.aborted = True
 
     def sendMgtCommand(self, command):
         try:
