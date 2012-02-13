@@ -11,3 +11,12 @@ class DigitalOutput(ubnode.UBNode):
     def clear(self, pin):
         cmd = "s %s 0"%pin
         return self.sendCommand(cmd)
+
+    def get(self, pin):
+        cmd = "g %s"%pin
+        if self.sendCommand(cmd):
+            return self.getMessage()
+        else:
+            return False
+
+
