@@ -14,7 +14,7 @@ class HID(ubnode.UBNode):
         return self.sendCommand(cmd)
 
     def lcd(self, x, y, text):
-        cmd = 'D%c%c%s'%(x+0x30,y+0x30,text)
+        cmd = 'D%c%c%s'%(x+0x30,y+0x30,text[0:16])
         return self.sendCommand(cmd)
 
 class HIDCallback:
