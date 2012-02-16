@@ -1,4 +1,5 @@
 import ubnode
+import ubresolver
 
 class DigitalOutput(ubnode.UBNode):
     udptype = '_digitaloutput._udp'

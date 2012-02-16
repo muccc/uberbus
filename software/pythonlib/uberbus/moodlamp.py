@@ -89,6 +89,10 @@ class Moodlamp(ubnode.UBNode):
         cmd = "D%c"%brightness;
         return self.sendCommand(cmd)
 
+    def setScript(self, script):
+        cmd = "!%c"%script;
+        return self.sendCommand(cmd)
+
     def getVersion(self):
         cmd = 'V'
         if self.sendCommand(cmd):
