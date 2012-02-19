@@ -204,6 +204,7 @@ class UBNode(parser.Parser):
                     return rc == parser.ACK
             except Exception, inst:
                 print "sendCommand:", inst
+                self.eof()
                 return False
 
     def getMessage(self):
@@ -233,7 +234,11 @@ class UBNode(parser.Parser):
             self.iowatch = gobject.io_add_watch(self.socket, gobject.IO_IN, self.incomming)
 
     def incomming(self, source, condition):
-        data = source.recv(1024)
+        try:
+            data = source.recv(1024)
+        except:
+            self.eof()
+            return False 
         print 'recv', list(data)
         if len(data) > 0:
             self.parseData(data)
